@@ -7,9 +7,8 @@
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.mypokemons.PokemonCards"
-        android:label="fragment_pokemon_cards"
-        tools:layout="@layout/fragment_pokemon_cards" />
+        android:name="com.example.mypokemons.fragments.PokemonCardsFragment"
+        android:label="fragment_pokemon_cards" />
     <fragment
         android:id="@+id/pocemonFavorites"
         android:name="com.example.mypokemons.PocemonFavorites"
