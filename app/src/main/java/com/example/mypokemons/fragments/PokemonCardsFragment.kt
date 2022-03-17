@@ -30,7 +30,7 @@ class PokemonCardsFragment : Fragment(R.layout.fragment_pokemon_cards) {
         }
 
         viewModel.pokemonsLiveData.observe(this as LifecycleOwner, Observer{
-            myAdapter?.setList(it.toList())
+            it.body()?.let { it1 -> myAdapter?.setList(it1) }
         })
 
         viewModel.getAllPokemons()
