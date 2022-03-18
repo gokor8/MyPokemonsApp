@@ -2,7 +2,7 @@ package com.example.domain.models
 
 import com.example.mypokemons.data.ApiServices.ApiService
 
-class PokemonsModel {
+class AllPokemonsCardsModel {
 
     private val retrofitService = ApiService.api
 
