@@ -1,9 +1,10 @@
-package com.example.mypokemons
+package com.example.mypokemons.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

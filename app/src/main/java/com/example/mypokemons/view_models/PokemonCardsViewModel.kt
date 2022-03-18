@@ -1,33 +1,30 @@
 package com.example.mypokemons.view_models
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.mypokemons.data.PokemonBaseInfo
-import com.example.mypokemons.data.models.PokemonsModel
-import com.example.mypokemons.data.storage.PokemonsJson
-import kotlinx.coroutines.launch
-import retrofit2.Response
+import com.example.domain.models.PokemonsModel
+import com.example.mypokemons.data.storage.PokemonsDataModel
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
-class PokemonCardsViewModel : ViewModel(){
-    val pokemonsLiveData = MutableLiveData<Response<PokemonsJson>>()
+class PokemonCardsViewModel : ViewModel() {
+    val pokemonsLiveData = MutableLiveData<PokemonsDataModel>()
 
-    val pokemons = ArrayList<PokemonBaseInfo>()
-    var model = PokemonsModel()
+    private var model = PokemonsModel()
 
-    fun getAllPokemons(){
-//        if(number <= 0) {
-//            pokemons.add(PokemonBaseInfo("Oleg", "SuperCool"))
-//            pokemons.add(PokemonBaseInfo("Denisich", "SuperCool"))
-//            pokemons.add(PokemonBaseInfo("Vlad", "Выполнил работу Влад Щепетьев"))
-//            pokemons.add(PokemonBaseInfo("gRiShA", "Ереванский цыган в сети"))
-//
-//            //if(newList > pokemons)
-//            pokemonsLiveData.value = pokemons
-//            number++
-//        }
-        viewModelScope.launch {
-            pokemonsLiveData.value = model.getAllCards()
-        }
+    fun getAllPokemons() {
+        model.getAllCards()
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe(
+                { onNext ->
+                    if(onNext.data.size != pokemonsLiveData.value?.data?.size)
+                    pokemonsLiveData.postValue(onNext)
+                },
+                { onError ->
+                    Log.d("OnErrorRx", "Error")
+                }
+            )
     }
 }
