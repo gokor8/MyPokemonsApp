@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mypokemons.R
+import com.example.mypokemons.data.database.room.PokemonsDatabase
 import com.example.mypokemons.ui.adapters.MainRecycleViewAdapter
 import com.example.mypokemons.databinding.FragmentPokemonCardsBinding
 import com.example.mypokemons.view_models.PokemonCardsViewModel
 import com.example.mypokemons.view_models.RvDiffCallback
+import com.squareup.picasso.Picasso
 
 class PokemonCardsFragment : Fragment(R.layout.fragment_pokemon_cards) {
 
@@ -23,30 +24,30 @@ class PokemonCardsFragment : Fragment(R.layout.fragment_pokemon_cards) {
         viewBinding = FragmentPokemonCardsBinding.bind(view)
         viewModel = ViewModelProvider(this).get(PokemonCardsViewModel::class.java)
 
-        val myAdapter = this.context?.let { MainRecycleViewAdapter(it) }
+        val rvAdapter = MainRecycleViewAdapter()
 
         viewBinding?.recycleView?.run {
             layoutManager = GridLayoutManager(this.context, 2)
-            adapter = myAdapter
+            adapter = rvAdapter
         }
 
         viewModel.pokemonsLiveData.observe(this as LifecycleOwner, Observer {
 
-            if (it == null || it.data.isEmpty())
+            viewBinding?.pbWait?.visibility = View.INVISIBLE
+
+            if (it == null || it.pokemons.isEmpty())
                 viewBinding?.tvNotify?.visibility = View.VISIBLE
             else {
                 viewBinding?.tvNotify?.visibility = View.INVISIBLE
 
-                myAdapter?.refreshAdapter(it.data)
-                //viewBinding?.recycleView?.adapter
-                //= MainRecycleViewAdapter(this.requireContext(), it.data.toMutableList())
+                rvAdapter.refreshAdapter(it.pokemons)
             }
         })
-    }
 
-    override fun onStart() {
-        super.onStart()
         viewModel.getAllPokemons()
+        //var dataBaseInstance = this.context?.let { it1 -> PokemonsDatabase.getDatabase(it1) }
+        //viewModel.setInstanceOfDb(dataBaseInstance!!)
+        //viewModel.getInsert()
     }
 
     override fun onDestroyView() {
