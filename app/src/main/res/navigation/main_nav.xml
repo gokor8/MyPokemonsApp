@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/searchPokemonCards">
 
     <fragment
         android:id="@+id/mainFragment"
@@ -19,4 +19,9 @@
         android:name="com.example.mypokemons.PocemonInfo"
         android:label="fragment_pocemon_info"
         tools:layout="@layout/fragment_pocemon_info" />
+    <fragment
+        android:id="@+id/searchPokemonCards"
+        android:name="com.example.mypokemons.SearchPokemonCards"
+        android:label="fragment_search_pokemon_cards"
+        tools:layout="@layout/fragment_search_pokemon_cards" />
 </navigation>
