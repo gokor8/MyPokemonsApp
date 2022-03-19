@@ -1,6 +1,6 @@
 package com.example.mypokemons.data.storage
 
 data class Images(
-    val logo: String,
-    val symbol: String
+    val large: String,
+    val small: String
 )

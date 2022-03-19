@@ -1,9 +1,9 @@
 package com.example.mypokemons.data.storage
 
-data class Data(
+data class Set(
     val id: String,
-    val images: Images,
-    val legalities: Legalities,
+    val images: ImagesX,
+    val legalities: LegalitiesX,
     val name: String,
     val printedTotal: Int,
     val ptcgoCode: String,

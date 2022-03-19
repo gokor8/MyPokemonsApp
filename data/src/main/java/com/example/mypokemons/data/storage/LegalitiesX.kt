@@ -1,6 +1,6 @@
 package com.example.mypokemons.data.storage
 
-data class Legalities(
+data class LegalitiesX(
     val expanded: String,
     val unlimited: String
 )
