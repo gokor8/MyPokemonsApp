@@ -3,15 +3,23 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.287" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/bottom_nav_tab_background.xml" value="0.1425" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/custom_input.xml" value="0.287" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/cv_background.xml" value="0.287" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/ic_baseline_star.xml" value="0.2305" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1885" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/ic_placeholder.xml" value="0.287" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/ic_vectorback.xml" value="0.287" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/recycle_item.xml" value="0.287" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/drawable/vectorplaceholder.xml" value="0.2305" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/activity_main.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/fragment_pocemon_favorites.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/fragment_pocemon_info.xml" value="0.3596014492753623" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/fragment_pokemon_cards.xml" value="0.36822916666666666" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/fragment_search_pokemon_cards.xml" value="0.36822916666666666" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/recycle_item.xml" value="0.33559782608695654" />
+        <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/layout/toolbar.xml" value="0.36822916666666666" />
         <entry key="..\:/Users/gvala/MyPokemons/app/src/main/res/menu/bottom_menu.xml" value="0.36822916666666666" />
       </map>
     </option>
