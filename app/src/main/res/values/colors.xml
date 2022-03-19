@@ -10,4 +10,6 @@
     <color name="orange">#FF9212</color>
     <color name="secondary_yellow">#FFDB65</color>
     <color name="default_grey">#B3B3B3</color>
+    <color name="search_orange">#FFC54C</color>
+    <color name="default_search">#FFEBC1</color>
 </resources>
