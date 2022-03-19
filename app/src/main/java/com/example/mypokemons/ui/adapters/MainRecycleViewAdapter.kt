@@ -1,25 +1,26 @@
 package com.example.mypokemons.ui.adapters
 
-import android.content.Context
+import android.icu.number.NumberFormatter.with
+import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mypokemons.data.storage.Data
-import com.example.mypokemons.databinding.RecycleItemBinding
+import com.example.mypokemons.data.storage.PokemonInfo
+import com.example.mypokemons.databinding.RvCardBinding
 import com.example.mypokemons.view_models.RvDiffCallback
+import com.squareup.picasso.Picasso
 
 class MainRecycleViewAdapter(
-    val context: Context,
-    private val pokemons: MutableList<Data> = mutableListOf()
+    private val pokemons: MutableList<PokemonInfo> = mutableListOf()
 ) : RecyclerView.Adapter<MainRecycleViewAdapter.PokemonsViewHolder>() {
 
     fun refreshAdapter(
-        newPokemons: List<Data>,
+        newPokemons: List<PokemonInfo>,
     ) {
-        val diffCallback = RvDiffCallback(pokemons, newPokemons)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
+        val diffResult = DiffUtil.calculateDiff(
+            RvDiffCallback(pokemons, newPokemons)
+        )
         pokemons.clear()
         pokemons.addAll(newPokemons)
 
@@ -31,7 +32,7 @@ class MainRecycleViewAdapter(
         viewType: Int,
     ): MainRecycleViewAdapter.PokemonsViewHolder {
         val bindingRoot =
-            RecycleItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            RvCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return PokemonsViewHolder(bindingRoot)
     }
 
@@ -43,17 +44,15 @@ class MainRecycleViewAdapter(
     }
 
     override fun getItemCount(): Int {
-        if (pokemons.size == 0) {
-            Toast.makeText(context, "List is empty", Toast.LENGTH_LONG).show()
-        }
         return pokemons.size
     }
 
-    inner class PokemonsViewHolder(private val binding: RecycleItemBinding) :
+    inner class PokemonsViewHolder(private val binding: RvCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(blog: Data) {
-            binding.titleName.text = blog.name
-            binding.secondName.text = blog.id
+        fun bind(pokemon: PokemonInfo) {
+            binding.titleName.text = pokemon.name
+
+            Picasso.get().load(pokemon.images.large).into(binding.showInfo)
             /*binding.showInfo.setOnClickListener {
                 viewModel.remove(blog)
                 notifyItemRemoved(arrayList.indexOf(blog))
