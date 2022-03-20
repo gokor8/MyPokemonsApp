@@ -1,33 +1,38 @@
 package com.example.mypokemons.view_models
 
 import android.annotation.SuppressLint
+import android.app.Application
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.example.domain.models.AllPokemonsCardsModel
 import com.example.mypokemons.data.database.room.PokemonEntity
 import com.example.mypokemons.data.database.room.PokemonsDatabase
+import com.example.mypokemons.data.database.room.dao.PokemonDao
+import com.example.mypokemons.data.storage.PokemonInfo
 import com.example.mypokemons.data.storage.PokemonModel
+import com.example.mypokemons.ui.BaseApplication
 import io.reactivex.schedulers.Schedulers
 import okhttp3.internal.notify
+import javax.inject.Inject
 
-class PokemonCardsViewModel() : ViewModel() {
-    val pokemonsLiveData = MutableLiveData<PokemonModel>()
+class PokemonCardsViewModel(application: Application) : AndroidViewModel(application) {
+    val pokemonsLiveData = MutableLiveData<List<PokemonInfo>>()
 
-    private var model = AllPokemonsCardsModel()
+    val appComponent = (application as BaseApplication).getAppComponent()
+
+    val dbDao: PokemonDao = appComponent.getDao()
+
+    private var model = AllPokemonsCardsModel(appComponent)
     private var dataBaseInstance: PokemonsDatabase? = null
-
-    fun setInstanceOfDb(dataBaseInstance: PokemonsDatabase) {
-        this.dataBaseInstance = dataBaseInstance
-    }
 
     @SuppressLint("CheckResult")
     fun getAllPokemons() {
         model.getAllCards()
             .subscribeOn(Schedulers.io())
             .subscribe(
-                { onNext: PokemonModel ->
-                    if (onNext.pokemons.size != pokemonsLiveData.value?.pokemons?.size)
+                { onNext: List<PokemonInfo> ->
+                    if (onNext.size != pokemonsLiveData.value?.size)
                         pokemonsLiveData.postValue(onNext)
                 },
                 { onError ->
@@ -38,18 +43,20 @@ class PokemonCardsViewModel() : ViewModel() {
     }
 
     fun getInsert() {
-        dataBaseInstance?.pokemonDao()?.insertList(
+        /*dbDao.insertList(
             listOf(
                 PokemonEntity(
-                    1, "AA", "", "", "", "", ""
+                    3, "AA2", "", "", "", "", ""
+                ),
+                PokemonEntity(
+                    2, "AA1", "", "", "", "", ""
                 )
             )
-        )?.subscribeOn(Schedulers.io())
-            ?.subscribe({
-            }, {
+        ).subscribeOn(Schedulers.io())
 
-            })?.let {
-            }
-        val result = dataBaseInstance?.pokemonDao()?.getAll()
+        dbDao.getAll()
+            .subscribe {
+                Log.d("DbData", it.joinToString(separator = "\r\n"))
+            }*/
     }
 }
