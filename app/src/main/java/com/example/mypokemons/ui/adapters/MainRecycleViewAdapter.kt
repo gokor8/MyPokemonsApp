@@ -4,15 +4,18 @@ import android.icu.number.NumberFormatter.with
 import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mypokemons.R
 import com.example.mypokemons.data.storage.PokemonInfo
 import com.example.mypokemons.databinding.RvCardBinding
 import com.example.mypokemons.view_models.RvDiffCallback
 import com.squareup.picasso.Picasso
 
 class MainRecycleViewAdapter(
-    private val pokemons: MutableList<PokemonInfo> = mutableListOf()
+    private val pokemons: MutableList<PokemonInfo> = mutableListOf(),
 ) : RecyclerView.Adapter<MainRecycleViewAdapter.PokemonsViewHolder>() {
 
     fun refreshAdapter(
@@ -53,10 +56,9 @@ class MainRecycleViewAdapter(
             binding.titleName.text = pokemon.name
 
             Picasso.get().load(pokemon.images.large).into(binding.showInfo)
-            /*binding.showInfo.setOnClickListener {
-                viewModel.remove(blog)
-                notifyItemRemoved(arrayList.indexOf(blog))
-            }*/
+            binding.llMain.setOnClickListener {
+                //navController.navigate(R.id.action_mainFragment_to_pocemonInfo)
+            }
         }
     }
 
