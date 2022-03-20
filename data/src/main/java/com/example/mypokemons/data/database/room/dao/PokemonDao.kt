@@ -2,7 +2,9 @@ package com.example.mypokemons.data.database.room.dao
 
 import androidx.room.*
 import com.example.mypokemons.data.database.room.PokemonEntity
+import com.example.mypokemons.data.storage.PokemonInfo
 import io.reactivex.Completable
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 @Dao
@@ -14,7 +16,7 @@ interface PokemonDao {
     fun getById(id: Int): PokemonEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertList(pokemons: List<PokemonEntity>) : Completable
+    fun insertList(pokemons: List<PokemonEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun update(pokemon: PokemonEntity)
