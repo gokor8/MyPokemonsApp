@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/mainFragment"
+        android:id="@+id/pokemon_cards"
         android:icon="@drawable/ic_placeholder"
         android:title=""
         />
     <item
-        android:id="@+id/pocemonFavorites"
+        android:id="@+id/pokemon_favorites"
         android:icon="@drawable/ic_baseline_star"
         android:title="" />
 </menu>
