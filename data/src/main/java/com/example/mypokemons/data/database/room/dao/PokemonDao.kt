@@ -10,13 +10,19 @@ import io.reactivex.Single
 @Dao
 interface PokemonDao {
     @Query("SELECT * FROM pokemons")
-    fun getAll(): List<PokemonEntity>
+    fun getAll(): Single<List<PokemonEntity>>
 
     @Query("SELECT * FROM pokemons WHERE id = :id")
     fun getById(id: Int): PokemonEntity
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertList(pokemons: List<PokemonEntity>)
+
+    @Query("SELECT count(*) FROM pokemons")
+    fun getSize(): Single<Int>
+
+    @Query("DELETE FROM pokemons")
+    fun deleteAll()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun update(pokemon: PokemonEntity)
