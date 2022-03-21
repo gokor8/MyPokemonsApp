@@ -24,7 +24,8 @@ class StorageModule(val context: Context) {
             context,
             PokemonsDatabase::class.java,
             "pokemon_database"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
 
     @Singleton
     @Provides

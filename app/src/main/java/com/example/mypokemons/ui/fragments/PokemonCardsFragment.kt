@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mypokemons.R
 import com.example.mypokemons.ui.adapters.MainRecycleViewAdapter
 import com.example.mypokemons.databinding.FragmentPokemonCardsBinding
-import com.example.mypokemons.view_models.PokemonCardsViewModel
+import com.example.mypokemons.viewModels.PokemonCardsViewModel
 
 class PokemonCardsFragment() : Fragment(R.layout.fragment_pokemon_cards) {
 
@@ -34,17 +32,16 @@ class PokemonCardsFragment() : Fragment(R.layout.fragment_pokemon_cards) {
 
             binding.pbWait.visibility = View.INVISIBLE
 
-            if (it == null || it.pokemons.isEmpty())
+            if (it == null || it.isEmpty())
                 binding.tvNotify.visibility = View.VISIBLE
             else {
                 binding.tvNotify.visibility = View.INVISIBLE
 
-                rvAdapter.refreshAdapter(it.pokemons)
+                rvAdapter.refreshAdapter(it)
             }
         })
 
-        viewModel.getAllPokemons()
-        viewModel.getInsert()
+        viewModel.getPreviewPokemons()
     }
 
 }

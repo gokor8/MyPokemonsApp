@@ -3,13 +3,11 @@ package com.example.mypokemons.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.commit
-import androidx.lifecycle.ViewModelProvider
 import com.example.mypokemons.PocemonFavorites
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
 import com.example.mypokemons.ui.fragments.PokemonCardsFragment
 import com.example.mypokemons.ui.fragments.SearchPokemonCardsFragment
-import com.example.mypokemons.view_models.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 

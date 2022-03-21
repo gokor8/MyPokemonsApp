@@ -1,10 +1,10 @@
 package com.example.domain.models
 
-import com.example.mypokemons.data.api_services.ApiService
-import com.example.mypokemons.data.storage.PokemonModel
-import io.reactivex.Single
+import com.example.domain.models.model.BasePokemonModel
+import com.example.mypokemons.data.apiServices.ApiService
+import io.reactivex.Observable
 
 class SearchPokemonsModel(val apiService: ApiService) {
 
-    fun getFoundCards(name: String): Single<PokemonModel> = apiService.getFoundCards("name:$name")
+    fun getFoundCards(name: String): Observable<List<BasePokemonModel>> = Observable.just(listOf(BasePokemonModel("a","a")))//apiService.getFoundCards("name:$name")
 }

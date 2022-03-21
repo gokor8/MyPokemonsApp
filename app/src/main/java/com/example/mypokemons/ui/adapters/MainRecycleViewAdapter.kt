@@ -1,25 +1,20 @@
 package com.example.mypokemons.ui.adapters
 
-import android.icu.number.NumberFormatter.with
-import android.icu.number.NumberRangeFormatter.with
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.mypokemons.R
-import com.example.mypokemons.data.storage.PokemonInfo
+import com.example.domain.models.model.BasePokemonModel
 import com.example.mypokemons.databinding.RvCardBinding
-import com.example.mypokemons.view_models.RvDiffCallback
+import com.example.mypokemons.viewModels.RvDiffCallback
 import com.squareup.picasso.Picasso
 
 class MainRecycleViewAdapter(
-    private val pokemons: MutableList<PokemonInfo> = mutableListOf(),
+    private val pokemons: MutableList<BasePokemonModel> = mutableListOf(),
 ) : RecyclerView.Adapter<MainRecycleViewAdapter.PokemonsViewHolder>() {
 
     fun refreshAdapter(
-        newPokemons: List<PokemonInfo>,
+        newPokemons: List<BasePokemonModel>,
     ) {
         val diffResult = DiffUtil.calculateDiff(
             RvDiffCallback(pokemons, newPokemons)
@@ -52,10 +47,10 @@ class MainRecycleViewAdapter(
 
     inner class PokemonsViewHolder(private val binding: RvCardBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        fun bind(pokemon: PokemonInfo) {
+        fun bind(pokemon: BasePokemonModel) {
             binding.titleName.text = pokemon.name
 
-            Picasso.get().load(pokemon.images.large).into(binding.showInfo)
+            Picasso.get().load(pokemon.image).into(binding.showInfo)
             binding.llMain.setOnClickListener {
                 //navController.navigate(R.id.action_mainFragment_to_pocemonInfo)
             }

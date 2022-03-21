@@ -6,13 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.FragmentSearchPokemonCardsBinding
 import com.example.mypokemons.ui.adapters.MainRecycleViewAdapter
-import com.example.mypokemons.view_models.SearchPokemonCardsViewModel
+import com.example.mypokemons.viewModels.SearchPokemonCardsViewModel
 
 class SearchPokemonCardsFragment(private val searchedName: String) : Fragment(R.layout.fragment_search_pokemon_cards) {
 
@@ -41,7 +39,7 @@ class SearchPokemonCardsFragment(private val searchedName: String) : Fragment(R.
             else {
                 binding.tvNotify.visibility = View.INVISIBLE
 
-                rvAdapter.refreshAdapter(it.pokemons)
+                //rvAdapter.refreshAdapter(it.pokemons)
             }
         })
 
