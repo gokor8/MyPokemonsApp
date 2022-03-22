@@ -1,15 +1,13 @@
 package com.example.domain.models.model
 
-import com.example.mypokemons.data.storage.Images
-
-data class BasePokemonModel(
+open class BasePokemonModel(
     val name: String,
-    val image: String
+    val image: String,
+    val isFavorite: Boolean
 ) {
-
     companion object{
-        fun<T> cast(srcModel: List<T>, casting: (T)->BasePokemonModel): List<BasePokemonModel> {
-            val castedList = mutableListOf<BasePokemonModel>()
+        fun<T,R> cast(srcModel: List<T>, casting: (T)->R): List<R> {
+            val castedList = mutableListOf<R>()
             srcModel.forEach {
                 castedList.add(casting(it))
             }
