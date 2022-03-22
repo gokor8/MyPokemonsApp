@@ -1,71 +1,69 @@
 package com.example.mypokemons.viewModels
 
-import android.annotation.SuppressLint
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.PokemonsCardsModel
 import com.example.domain.models.model.BasePokemonModel
-import com.example.mypokemons.data.database.room.PokemonsDatabase
-import com.example.mypokemons.data.database.room.dao.PokemonDao
 import com.example.mypokemons.ui.BaseApplication
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class PokemonCardsViewModel(application: Application) : AndroidViewModel(application) {
     val pokemonsLiveData = MutableLiveData<List<BasePokemonModel>>()
 
-    val appComponent = (application as BaseApplication).getAppComponent()
-
-    val dbDao: PokemonDao = appComponent.getDao()
-
+    private val appComponent = (application as BaseApplication).getAppComponent()
     private var model = PokemonsCardsModel(appComponent)
-    private var dataBaseInstance: PokemonsDatabase? = null
 
-    @SuppressLint("CheckResult")
-    fun getPreviewPokemons() {
-        model.getPreviewRetrofitCards()
+    private val compositeDisposable = CompositeDisposable()
+
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+    }
+
+    fun setPreviewPokemons() {
+        val disposeSub = model.getPreviewRetrofitCards()
             .subscribeOn(Schedulers.io())
-            .subscribe({ onNext ->
-                model.refreshTable(onNext.pokemons)
-                if (onNext.pokemons.size != pokemonsLiveData.value?.size) {
-                    val pokemonsList = BasePokemonModel.cast(onNext.pokemons) { pokemonInfo ->
-                        BasePokemonModel(pokemonInfo.name, pokemonInfo.images.small)
+            .flatMap {
+                model.refreshTable(it.pokemons)
+            }
+            .map {
+                var pokemonsList = listOf<BasePokemonModel>()
+                if (it.isNotEmpty())
+                    pokemonsList = BasePokemonModel.cast(it) { pokemonInfo ->
+                        BasePokemonModel(
+                            pokemonInfo.name,
+                            pokemonInfo.images.small,
+                            pokemonInfo.isFavorite
+                        )
                     }
-                    pokemonsLiveData.postValue(pokemonsList)
-                }
-            }, {
-                model.getPreviewRoomCards()
-                    .subscribe({ dbPokemons ->
+                return@map pokemonsList
+            }
+            .onErrorResumeNext {
+                Log.e("AllCardsError", it.message.toString())
+                return@onErrorResumeNext model.getPreviewRoomCards()
+                    .map { dbPokemons ->
                         var pokemonsList = listOf<BasePokemonModel>()
                         if (dbPokemons.isNotEmpty())
                             pokemonsList = BasePokemonModel.cast(dbPokemons) { pokemonInfo ->
-                                BasePokemonModel(pokemonInfo.name, pokemonInfo.images.small)
+                                BasePokemonModel(
+                                    pokemonInfo.name,
+                                    pokemonInfo.images.small,
+                                    pokemonInfo.isFavorite
+                                )
                             }
-                        pokemonsLiveData.postValue(pokemonsList)
-                    },
-                        {
-                            Log.d("ErrorDb", it.stackTraceToString())
-                        })
+                        return@map pokemonsList
+                    }
+            }
+            .subscribe({
+                pokemonsLiveData.postValue(it)
+            }, {
+                Log.d("ErrorDb", it.stackTraceToString())
             }
             )
-    }
 
-    fun getInsert() {
-        /*dbDao.insertList(
-            listOf(
-                PokemonEntity(
-                    3, "AA2", "", "", "", "", ""
-                ),
-                PokemonEntity(
-                    2, "AA1", "", "", "", "", ""
-                )
-            )
-        ).subscribeOn(Schedulers.io())
-
-        dbDao.getAll()
-            .subscribe {
-                Log.d("DbData", it.joinToString(separator = "\r\n"))
-            }*/
+        compositeDisposable.add(disposeSub)
     }
 }
