@@ -33,7 +33,7 @@
             android:focusedByDefault="false"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/custom_input"
+            android:background="@drawable/el_custom_input"
             android:hint="@string/search"
             android:textSize="14sp"
             android:paddingStart="12dp"

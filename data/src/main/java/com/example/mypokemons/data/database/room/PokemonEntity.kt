@@ -4,26 +4,23 @@ import androidx.room.*
 import com.example.mypokemons.data.database.room.converters.ImagesConverter
 import com.example.mypokemons.data.database.room.models.Images
 import com.google.gson.annotations.SerializedName
+import org.jetbrains.annotations.NotNull
 
 @Entity(tableName = "pokemons")
 @TypeConverters(ImagesConverter::class)
 data class PokemonEntity(
-    @PrimaryKey(autoGenerate = true)
-    //@SerializedName("id")
-    val id: Int,
-    //@SerializedName("name")
+    @ColumnInfo(name = "name")
     val name: String,
-   // @SerializedName("rare")
     val rare: String,
-    //@SerializedName("type")
     val type: String,
-    //@SerializedName("subtype")
     val subtype: String,
-    //@SerializedName("health")
     val health: String,
-
     val images: Images,
-   // @SerializedName("type_attack")
+    @NotNull
     @ColumnInfo(name = "type_attack")
     val typeAttack: String,
+    @ColumnInfo(name = "is_favorite")
+    var isFavorite: Boolean,
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 )

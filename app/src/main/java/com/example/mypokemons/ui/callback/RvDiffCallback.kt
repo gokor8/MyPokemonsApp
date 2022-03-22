@@ -1,4 +1,4 @@
-package com.example.mypokemons.viewModels
+package com.example.mypokemons.ui.callback
 
 import androidx.recyclerview.widget.DiffUtil
 

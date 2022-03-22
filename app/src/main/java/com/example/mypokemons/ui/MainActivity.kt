@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         //val viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
+        //binding.toolbar.searchSrcText.focusable = View.NOT_FOCUSABLE
+
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, PokemonCardsFragment())
             .setReorderingAllowed(true)

@@ -31,13 +31,12 @@ android {
         jvmTarget = '1.8'
     }
 
-    viewBinding{
-        enabled = true
+    buildFeatures{
+        viewBinding = true
     }
 }
 
 dependencies {
-   // implementation project(path: ':data')
     // Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -64,6 +63,8 @@ dependencies {
     //Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+    implementation 'androidx.fragment:fragment:1.4.1'
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.4.1'
     implementation 'com.google.android.material:material:1.5.0'

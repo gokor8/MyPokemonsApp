@@ -14,6 +14,6 @@ interface ApiService {
     fun getAllCards(): Single<PokemonModel>
 
     @GET("/v2/cards?")
-    fun getFoundCards(@Query("q") name: String): Response<PokemonModel>
+    fun getFoundCards(@Query("q") name: String): Observable<PokemonModel>
 
 }

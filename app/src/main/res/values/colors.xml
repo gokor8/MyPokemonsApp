@@ -7,8 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#FF9212</color>
+    <color name="main_orange">#FF9212</color>
     <color name="secondary_yellow">#FFDB65</color>
+    <color name="light_grey">#F1F1F1</color>
     <color name="default_grey">#B3B3B3</color>
     <color name="search_orange">#FFC54C</color>
     <color name="default_search">#FFEBC1</color>

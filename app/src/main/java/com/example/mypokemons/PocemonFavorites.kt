@@ -34,7 +34,7 @@ class PocemonFavorites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_pocemon_favorites, container, false)
+        return inflater.inflate(R.layout.fragment_pokemon_favorites, container, false)
     }
 
     companion object {
