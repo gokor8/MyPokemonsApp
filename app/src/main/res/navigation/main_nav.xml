@@ -3,30 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/searchPokemonCards">
+    app:startDestination="@id/mainFragment">
 
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.example.mypokemons.ui.fragments.PokemonCardsFragment"
         android:label="fragment_pokemon_cards" >
         <action
-            android:id="@+id/action_mainFragment_to_pocemonInfo"
-            app:destination="@id/pocemonInfo"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            android:id="@+id/action_mainFragment_to_pokemonInfo"
+            app:destination="@id/pokemonInfo" />
     </fragment>
     <fragment
-        android:id="@+id/pocemonFavorites"
+        android:id="@+id/pokemonFavorites"
         android:name="com.example.mypokemons.PocemonFavorites"
         android:label="fragment_pocemon_favorites"
-        tools:layout="@layout/fragment_pocemon_favorites" />
+        tools:layout="@layout/fragment_pokemon_favorites" />
     <fragment
-        android:id="@+id/pocemonInfo"
-        android:name="com.example.mypokemons.PocemonInfo"
-        android:label="fragment_pocemon_info"
-        tools:layout="@layout/fragment_pocemon_info" />
+        android:id="@+id/pokemonInfo"
+        android:name="com.example.mypokemons.ui.fragments.PokemonInfoFragment"
+        android:label="fragment_pokemon_info"
+        tools:layout="@layout/fragment_pokemon_info" >
+        <action
+            android:id="@+id/action_pokemonInfo_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchPokemonCards"
-        android:name="com.example.mypokemons.SearchPokemonCards"
+        android:name="com.example.mypokemons.ui.fragments.SearchPokemonCardsFragment"
         android:label="fragment_search_pokemon_cards"
         tools:layout="@layout/fragment_search_pokemon_cards" />
 </navigation>
