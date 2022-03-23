@@ -37,6 +37,8 @@ class SearchPokemonCardsViewModel(application: Application, private val name: St
                 }, {
                     pokemonsLiveData.postValue(filteredPokemons)
                     Log.d("CardsError", it.message.toString())
+                },{
+                    pokemonsLiveData.postValue(filteredPokemons)
                 })
         )
     }
