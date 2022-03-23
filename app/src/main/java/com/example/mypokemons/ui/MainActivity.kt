@@ -19,15 +19,15 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        supportFragmentManager.beginTransaction()
-            .replace(
+        supportFragmentManager.commit {
+            val mainFragment = PokemonCardsFragment(PokemonCardsViewModel(application))
+            replace(
                 R.id.fragmentContainerView,
-                PokemonCardsFragment(PokemonCardsViewModel(application))
+                mainFragment
             )
-            .setReorderingAllowed(true)
-            .commit()
+        }
 
-        val bnvhandler = BottomNavigationHandler(
+        val bnvHandler = BnvHandler(
             binding.fragmentContainerView, hashMapOf(
                 R.id.pokemon_cards to PokemonCardsFragment(PokemonCardsViewModel(application)),
                 R.id.pokemon_favorites to PokemonCardsFragment(PokemonFavoritesViewModel(application))
@@ -35,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         )
 
         binding.bnvMain.setOnItemSelectedListener {
-            bnvhandler.changeFragment(it.itemId) {
+            bnvHandler.changeFragment(it.itemId) {
                 supportFragmentManager.beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.fragmentContainerView, it)
-                    .setReorderingAllowed(true)
                     .commit()
             }
             true
@@ -47,18 +47,19 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.ivBack.setOnClickListener {
             binding.bnvMain.selectedItemId = R.id.pokemon_cards
             supportFragmentManager.commit {
+                addToBackStack(null)
                 replace(
                     R.id.fragmentContainerView,
                     PokemonCardsFragment(PokemonCardsViewModel(application))
                 )
-                setReorderingAllowed(true)
             }
         }
 
         binding.toolbar.run {
             searchButton.setOnClickListener {
-                supportFragmentManager.commit {
-                    replace(
+                supportFragmentManager.beginTransaction()
+                    .addToBackStack(null)
+                    .replace(
                         R.id.fragmentContainerView,
                         PokemonCardsFragment(
                             SearchPokemonCardsViewModel(
@@ -67,9 +68,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         )
                     )
-                    setReorderingAllowed(true)
-                    addToBackStack(null)
-                }
+                    .commit()
             }
         }
     }
