@@ -1,6 +1,7 @@
 package com.example.domain.models.models
 
 class FullPokemonModel(
+    id: String,
     name: String,
     image: String,
     isFavorite: Boolean,
@@ -10,5 +11,5 @@ class FullPokemonModel(
     val health: String,
     val typeAttack: String,
 ) : BasePokemonModel(
-    name, image, isFavorite
+    id, name, image, isFavorite
 ) {}

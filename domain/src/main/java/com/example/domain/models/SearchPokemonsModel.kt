@@ -2,8 +2,7 @@ package com.example.domain.models
 
 import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.data.di.AppComponent
-import com.example.mypokemons.data.api_services.gson_models.PokemonInfo
-import io.reactivex.Observable
+import java.util.*
 
 class SearchPokemonsModel(val appComponent: AppComponent) {
 
@@ -12,21 +11,19 @@ class SearchPokemonsModel(val appComponent: AppComponent) {
 
     fun getWebCards(name: String) = apiService.getByNameCards("name:$name")
 
-    fun getAllFilteredDbCards(name: String, pokemonInfo: PokemonInfo): Observable<BasePokemonModel> {
-        return pokemonsDao.getByName(name).map { dbPokemon ->
-            if (dbPokemon.isEmpty())
-                return@map BasePokemonModel(
-                    pokemonInfo.name,
-                    pokemonInfo.images.small,
-                    false
-                )
+    fun getById(id: String) = pokemonsDao.getCardsByRawId(id)
+        .map { dbPokemon ->
+            if (dbPokemon.isNotEmpty())
+                return@map dbPokemon[0].run {
+                    BasePokemonModel(
+                        pId,
+                        name,
+                        images.small,
+                        isFavorite
+                    )
+                }
+            else
+                return@map BasePokemonModel("-1", "", "", false)
 
-            return@map BasePokemonModel(
-                pokemonInfo.name,
-                pokemonInfo.images.small,
-                dbPokemon[0].isFavorite
-            )
         }
-    }
-
 }

@@ -1,6 +1,7 @@
 package com.example.mypokemons.data.api_services.gson_models
 
 data class PokemonInfo(
+    val id: String,
     val attacks: List<Attack>,
     val hp: String,
     val images: Images,

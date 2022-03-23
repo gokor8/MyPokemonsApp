@@ -24,9 +24,9 @@ class PokemonInfoViewModel(application: Application) :
         super.onCleared()
     }
 
-    fun updateFavorite(name: String, isFavorite: Boolean) {
+    fun updateFavorite(id: String, isFavorite: Boolean) {
         compositeDisposable.add(
-            model.getCardByName(name)
+            model.getCardInfo(id)
             .subscribeOn(Schedulers.io())
                 .flatMap {
                     it.isFavorite = !isFavorite
@@ -35,20 +35,20 @@ class PokemonInfoViewModel(application: Application) :
             .subscribe { pokemonDb ->
                 infoLiveData.value?.run {
                     val fillModel = FullPokemonModel(
-                        name, image, pokemonDb.isFavorite, rare, type, subtype, health, typeAttack
+                        id, name, image, pokemonDb.isFavorite, rare, type, subtype, health, typeAttack
                     )
                     infoLiveData.postValue(fillModel)
                 }
             })
     }
 
-    fun setPreviewData(name: String) {
-        val disposeSub = model.getCardInfo(name)
+    fun setPreviewData(id: String) {
+        val disposeSub = model.getCardInfo(id)
             .subscribeOn(Schedulers.io())
             .subscribe { dbPokemons ->
-                if (dbPokemons.isNotEmpty())
-                    dbPokemons[0].run {
+                    dbPokemons.apply {
                         val fillModel = FullPokemonModel(
+                            pId,
                             name,
                             images.large,
                             isFavorite,

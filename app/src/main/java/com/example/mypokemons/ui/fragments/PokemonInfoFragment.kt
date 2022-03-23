@@ -11,7 +11,7 @@ import com.example.mypokemons.databinding.FragmentPokemonInfoBinding
 import com.example.mypokemons.viewModels.PokemonInfoViewModel
 import com.squareup.picasso.Picasso
 
-class PokemonInfoFragment(val name: String) : Fragment(R.layout.fragment_pokemon_info) {
+class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_info) {
 
     private var binding: FragmentPokemonInfoBinding? = null
     private var viewModel: PokemonInfoViewModel? = null
@@ -28,14 +28,14 @@ class PokemonInfoFragment(val name: String) : Fragment(R.layout.fragment_pokemon
                     titleName.text = pokemonInfo.name
                     species.text = "${pokemonInfo.type} ${pokemonInfo.subtype} ${pokemonInfo.rare}"
                     description.text =
-                        "Hp: ${pokemonInfo.health} Type Attack${pokemonInfo.typeAttack}"
+                        "Hp: ${pokemonInfo.health} Type Attack: ${pokemonInfo.typeAttack}"
                     changeFab(pokemonInfo.isFavorite)
                 }
-                it.setPreviewData(name)
+                it.setPreviewData(id)
 
                 fab.setOnClickListener { fab ->
-                    it.infoLiveData.value?.run {
-                        it.updateFavorite(name,isFavorite)
+                    it.infoLiveData.value?.apply {
+                        it.updateFavorite(id,isFavorite)
                     }
                 }
             }

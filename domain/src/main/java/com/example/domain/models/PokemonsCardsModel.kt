@@ -22,6 +22,7 @@ open class PokemonsCardsModel(val appComponent: AppComponent) {
             if (dbPokemons.isNotEmpty())
                 pokemonsList = BasePokemonModel.cast(dbPokemons) { pokemonInfo ->
                     BasePokemonModel(
+                        pokemonInfo.pId,
                         pokemonInfo.name,
                         pokemonInfo.images.small,
                         pokemonInfo.isFavorite
@@ -36,6 +37,7 @@ open class PokemonsCardsModel(val appComponent: AppComponent) {
         if (dbPokemons.isNotEmpty())
             pokemonsList = BasePokemonModel.cast(dbPokemons) { pokemonInfo ->
                 BasePokemonModel(
+                    pokemonInfo.pId,
                     pokemonInfo.name,
                     pokemonInfo.images.small,
                     pokemonInfo.isFavorite
@@ -61,6 +63,7 @@ open class PokemonsCardsModel(val appComponent: AppComponent) {
                     if (pokemon.attacks != null) attack = pokemon.attacks[0].name
 
                     PokemonEntity(
+                        pokemon.id,
                         pokemon.name,
                         pokemon.rarity ?: "",
                         pokemon.types[0] ?: "",

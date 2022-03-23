@@ -57,7 +57,7 @@ class MainRecycleViewAdapter(
             binding.titleName.text = pokemon.name
             Picasso.get().load(pokemon.image).into(binding.showInfo)
 
-            var starId = R.drawable.ic_baseline_star
+            var starId = R.drawable.ic_empty_star
             if(pokemon.isFavorite)
                 starId = R.drawable.ic_favorite_star
 
@@ -65,8 +65,7 @@ class MainRecycleViewAdapter(
 
             binding.llMain.setOnClickListener {
                 supportFragmentManager.commit {
-                    replace(R.id.fragmentContainerView, PokemonInfoFragment(pokemon.name))
-                    setReorderingAllowed(true)
+                    replace(R.id.fragmentContainerView, PokemonInfoFragment(pokemon.id))
                 }
             }
         }

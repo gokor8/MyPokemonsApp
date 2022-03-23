@@ -9,6 +9,8 @@ import org.jetbrains.annotations.NotNull
 @Entity(tableName = "pokemons")
 @TypeConverters(ImagesConverter::class)
 data class PokemonEntity(
+    @ColumnInfo(name = "p_id")
+    val pId: String,
     @ColumnInfo(name = "name")
     val name: String,
     val rare: String,

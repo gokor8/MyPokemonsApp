@@ -1,10 +1,16 @@
 package com.example.mypokemons.viewModels
 
 import android.app.Application
+import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.SearchPokemonsModel
 import com.example.domain.models.models.BasePokemonModel
+import com.example.mypokemons.ui.BaseApplication
+import com.example.mypokemons.ui.fragments.PokemonCardsFragment
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
 class SearchPokemonCardsViewModel(application: Application, private val name: String) : BaseViewModel(application) {
@@ -21,12 +27,15 @@ class SearchPokemonCardsViewModel(application: Application, private val name: St
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMapIterable { it.pokemons }
                 .flatMap { rPokemon ->
-                    model.getAllFilteredDbCards(name, rPokemon)
+                    Log.d("Name", "$name : ${rPokemon.name}")
+                    model.getById(rPokemon.id)
                 }
                 .subscribe({ pokemon ->
-                    filteredPokemons.add(pokemon)
+                    if(pokemon.id != "-1")
+                        filteredPokemons.add(pokemon)
                     pokemonsLiveData.postValue(filteredPokemons)
                 }, {
+                    pokemonsLiveData.postValue(filteredPokemons)
                     Log.d("CardsError", it.message.toString())
                 })
         )
