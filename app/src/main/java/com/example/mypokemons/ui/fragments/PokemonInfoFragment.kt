@@ -10,6 +10,7 @@ import com.example.mypokemons.R
 import com.example.mypokemons.databinding.FragmentPokemonInfoBinding
 import com.example.mypokemons.viewModels.PokemonInfoViewModel
 import com.squareup.picasso.Picasso
+import java.lang.StringBuilder
 
 class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_info) {
 
@@ -26,16 +27,24 @@ class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_i
                 it.infoLiveData.observe(this@PokemonInfoFragment as LifecycleOwner) { pokemonInfo ->
                     Picasso.get().load(pokemonInfo.image).into(image)
                     titleName.text = pokemonInfo.name
-                    species.text = "${pokemonInfo.type} ${pokemonInfo.subtype} ${pokemonInfo.rare}"
-                    description.text =
-                        "Hp: ${pokemonInfo.health} Type Attack: ${pokemonInfo.typeAttack}"
+                    species.text = pokemonInfo.type
+
+                    val stringBuilder = StringBuilder()
+                    stringBuilder.apply {
+                        appendln(getString(R.string.hp, pokemonInfo.health))
+                        appendln(getString(R.string.type_attack,pokemonInfo.typeAttack))
+                        appendln(getString(R.string.subtype, pokemonInfo.subtype))
+                        appendln(getString(R.string.rare, pokemonInfo.rare))
+                    }
+
+                    description.text = stringBuilder.toString()
                     changeFab(pokemonInfo.isFavorite)
                 }
                 it.setPreviewData(id)
 
                 fab.setOnClickListener { fab ->
                     it.infoLiveData.value?.apply {
-                        it.updateFavorite(id,isFavorite)
+                        it.updateFavorite(id, isFavorite)
                     }
                 }
             }
