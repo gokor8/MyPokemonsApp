@@ -7,6 +7,7 @@ import com.example.mypokemons.PocemonFavorites
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
 import com.example.mypokemons.ui.fragments.PokemonCardsFragment
+import com.example.mypokemons.ui.fragments.PokemonFavoritesFragment
 import com.example.mypokemons.ui.fragments.SearchPokemonCardsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         val bnvhandler = BottomNavigationHandler(
             binding.fragmentContainerView, hashMapOf(
                 R.id.pokemon_cards to PokemonCardsFragment(),
-                R.id.pokemon_favorites to PocemonFavorites()
+                R.id.pokemon_favorites to PokemonFavoritesFragment()
             )
         )
 

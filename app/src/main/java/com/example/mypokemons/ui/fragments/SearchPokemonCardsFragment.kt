@@ -14,7 +14,7 @@ import com.example.mypokemons.ui.adapters.MainRecycleViewAdapter
 import com.example.mypokemons.viewModels.PokemonCardsViewModel
 import com.example.mypokemons.viewModels.SearchPokemonCardsViewModel
 
-class SearchPokemonCardsFragment(private val searchedName: String) : BasePokemonCards(R.layout.fragment_search_pokemon_cards) {
+class SearchPokemonCardsFragment(private val searchedName: String) : BasePokemonCardsFragment(R.layout.fragment_search_pokemon_cards) {
 
     private var binding: FragmentSearchPokemonCardsBinding? = null
     private var viewModel: SearchPokemonCardsViewModel? = null
@@ -26,7 +26,7 @@ class SearchPokemonCardsFragment(private val searchedName: String) : BasePokemon
 
         viewModel?.run {
             binding?.run {
-                val baseBindings = BasePokemonCards.BaseBindings(
+                val baseBindings = BaseBindings(
                     recycleView,
                     pbWait,
                     tvNotify

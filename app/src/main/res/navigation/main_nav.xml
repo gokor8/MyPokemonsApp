@@ -15,8 +15,8 @@
     </fragment>
     <fragment
         android:id="@+id/pokemonFavorites"
-        android:name="com.example.mypokemons.PocemonFavorites"
-        android:label="fragment_pocemon_favorites"
+        android:name="com.example.mypokemons.ui.fragments.PokemonFavoritesFragment"
+        android:label="fragment_pokemon_favorites"
         tools:layout="@layout/fragment_pokemon_favorites" />
     <fragment
         android:id="@+id/pokemonInfo"
