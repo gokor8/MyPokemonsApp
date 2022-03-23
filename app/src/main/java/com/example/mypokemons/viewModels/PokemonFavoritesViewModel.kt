@@ -2,6 +2,7 @@ package com.example.mypokemons.viewModels
 
 import android.app.Application
 import com.example.domain.models.PokemonFavoritesModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
 class PokemonFavoritesViewModel(application: Application) : BaseViewModel(application) {
@@ -10,6 +11,7 @@ class PokemonFavoritesViewModel(application: Application) : BaseViewModel(applic
     override fun updateData() {
         compositeDisposable.add(
             model.getFavoritesCards()
+                .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
             .subscribe {
                 val castedPokemons = model.castDbCards(it)

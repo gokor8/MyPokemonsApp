@@ -28,7 +28,7 @@ open class PokemonCardsFragment() :
         viewModel?.updateData()
     }
 
-    protected fun createBaseLogic(){
+    protected fun createBaseLogic() {
         viewModel?.let { vm ->
             viewModel = ViewModelProvider(this)[vm::class.java]
             binding?.apply {
@@ -39,16 +39,17 @@ open class PokemonCardsFragment() :
                     adapter = rvAdapter
                 }
 
-                vm.pokemonsLiveData.observe(this@PokemonCardsFragment as LifecycleOwner, Observer {
-                    pbWait.visibility = View.INVISIBLE
+                vm.pokemonsLiveData.observe(this@PokemonCardsFragment as LifecycleOwner,
+                    Observer {
+                        pbWait.visibility = View.INVISIBLE
 
-                    if (it == null || it.isEmpty())
-                        tvNotify.visibility = View.VISIBLE
-                    else {
-                        tvNotify.visibility = View.INVISIBLE
-                        rvAdapter.refreshAdapter(it)
-                    }
-                })
+                        if (it == null || it.isEmpty())
+                            tvNotify.visibility = View.VISIBLE
+                        else {
+                            tvNotify.visibility = View.INVISIBLE
+                            rvAdapter.refreshAdapter(it)
+                        }
+                    })
             }
         }
     }

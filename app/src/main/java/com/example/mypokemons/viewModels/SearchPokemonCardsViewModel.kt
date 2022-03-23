@@ -15,12 +15,14 @@ import io.reactivex.schedulers.Schedulers
 
 class SearchPokemonCardsViewModel(application: Application) : BaseViewModel(application) {
 
-    var name: String = ""
-
     private val model = SearchPokemonsModel(appComponent)
 
     override fun updateData() {
-        val filteredPokemons = mutableListOf<BasePokemonModel>()
+        updateDataByName("")
+    }
+
+    fun updateDataByName(name: String) {
+        val pokemons = mutableListOf<BasePokemonModel>()
         compositeDisposable.add(
             model.getWebCards(name)
                 .subscribeOn(Schedulers.io())
@@ -32,13 +34,13 @@ class SearchPokemonCardsViewModel(application: Application) : BaseViewModel(appl
                 }
                 .subscribe({ pokemon ->
                     if(pokemon.id != "-1")
-                        filteredPokemons.add(pokemon)
-                    pokemonsLiveData.postValue(filteredPokemons)
+                        pokemons.add(pokemon)
+                    pokemonsLiveData.postValue(pokemons)
                 }, {
-                    pokemonsLiveData.postValue(filteredPokemons)
+                    pokemonsLiveData.postValue(pokemons)
                     Log.d("CardsError", it.message.toString())
                 },{
-                    pokemonsLiveData.postValue(filteredPokemons)
+                    pokemonsLiveData.postValue(pokemons)
                 })
         )
     }

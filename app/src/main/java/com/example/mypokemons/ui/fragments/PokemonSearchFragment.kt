@@ -1,9 +1,7 @@
 package com.example.mypokemons.ui.fragments
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.mypokemons.databinding.FragmentPokemonCardsBinding
 import com.example.mypokemons.viewModels.BaseViewModel
@@ -22,13 +20,16 @@ class PokemonSearchFragment() : PokemonCardsFragment() {
         viewModel = ViewModelProvider(this)[SearchPokemonCardsViewModel::class.java]
 
         createBaseLogic()
-        (viewModel as SearchPokemonCardsViewModel).name = requireArguments().getString(NAME).toString()
-        viewModel?.updateData()
+
+        (viewModel as SearchPokemonCardsViewModel).apply {
+            val bundleName = requireArguments().getString(NAME).toString()
+            updateDataByName(bundleName)
+        }
     }
 
     companion object{
 
-        val NAME = "NAME"
+        const val NAME = "POKEMON_NAME"
 
         fun newInstance(name: String): PokemonSearchFragment{
             val args = Bundle()

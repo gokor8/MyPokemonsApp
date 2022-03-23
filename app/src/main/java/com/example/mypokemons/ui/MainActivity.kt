@@ -6,6 +6,7 @@ import androidx.fragment.app.commit
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
 import com.example.mypokemons.ui.fragments.PokemonCardsFragment
+import com.example.mypokemons.ui.fragments.PokemonFavoritesFragment
 import com.example.mypokemons.ui.fragments.PokemonSearchFragment
 import com.example.mypokemons.viewModels.PokemonCardsViewModel
 import com.example.mypokemons.viewModels.PokemonFavoritesViewModel
@@ -33,7 +34,7 @@ class MainActivity : AppCompatActivity() {
         val bnvHandler = BnvHandler(
             binding.fragmentContainerView, mapOf(
                 R.id.pokemon_cards to PokemonCardsFragment(),
-                R.id.pokemon_favorites to PokemonSearchFragment()
+                R.id.pokemon_favorites to PokemonFavoritesFragment()
             )
         )
 
