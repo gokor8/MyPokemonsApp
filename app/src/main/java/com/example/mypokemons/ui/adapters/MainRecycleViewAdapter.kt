@@ -65,6 +65,7 @@ class MainRecycleViewAdapter(
 
             binding.llMain.setOnClickListener {
                 supportFragmentManager.commit {
+                    addToBackStack(null)
                     replace(R.id.fragmentContainerView, PokemonInfoFragment(pokemon.id))
                 }
             }

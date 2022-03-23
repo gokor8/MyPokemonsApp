@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.searchSrcText.clearFocus()
+
         supportFragmentManager.commit {
             val mainFragment = PokemonCardsFragment(PokemonCardsViewModel(application))
             replace(
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity() {
         binding.bnvMain.setOnItemSelectedListener {
             bnvHandler.changeFragment(it.itemId) {
                 supportFragmentManager.beginTransaction()
-                    //.addToBackStack(null)
                     .replace(R.id.fragmentContainerView, it)
                     .commit()
             }
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.ivBack.setOnClickListener {
             binding.bnvMain.selectedItemId = R.id.pokemon_cards
             supportFragmentManager.commit {
-                //addToBackStack(null)
+                addToBackStack(null)
                 replace(
                     R.id.fragmentContainerView,
                     PokemonCardsFragment(PokemonCardsViewModel(application))
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.run {
             searchButton.setOnClickListener {
                 supportFragmentManager.beginTransaction()
-                    //.addToBackStack(null)
+                    .addToBackStack(null)
                     .replace(
                         R.id.fragmentContainerView,
                         PokemonCardsFragment(
