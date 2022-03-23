@@ -9,23 +9,26 @@ import com.example.mypokemons.R
 import com.example.mypokemons.databinding.FragmentPokemonCardsBinding
 import com.example.mypokemons.ui.adapters.MainRecycleViewAdapter
 import com.example.mypokemons.viewModels.BaseViewModel
+import com.example.mypokemons.viewModels.PokemonCardsViewModel
 
-class PokemonCardsFragment() :
+open class PokemonCardsFragment() :
     Fragment(R.layout.fragment_pokemon_cards) {
 
-    private var viewModel: BaseViewModel? = null
+    protected open var viewModel: BaseViewModel? = null
 
-    constructor(viewModel: BaseViewModel) : this() {
-        this.viewModel = viewModel
-    }
-
-    private var binding: FragmentPokemonCardsBinding? = null
+    protected open var binding: FragmentPokemonCardsBinding? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentPokemonCardsBinding.bind(view)
+        viewModel = ViewModelProvider(this)[PokemonCardsViewModel::class.java]
 
+        createBaseLogic()
+        viewModel?.updateData()
+    }
+
+    protected fun createBaseLogic(){
         viewModel?.let { vm ->
             viewModel = ViewModelProvider(this)[vm::class.java]
             binding?.apply {
@@ -46,7 +49,6 @@ class PokemonCardsFragment() :
                         rvAdapter.refreshAdapter(it)
                     }
                 })
-                vm.updateData()
             }
         }
     }

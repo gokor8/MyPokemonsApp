@@ -6,6 +6,7 @@ import androidx.fragment.app.commit
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
 import com.example.mypokemons.ui.fragments.PokemonCardsFragment
+import com.example.mypokemons.ui.fragments.PokemonSearchFragment
 import com.example.mypokemons.viewModels.PokemonCardsViewModel
 import com.example.mypokemons.viewModels.PokemonFavoritesViewModel
 import com.example.mypokemons.viewModels.SearchPokemonCardsViewModel
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.searchSrcText.clearFocus()
 
         supportFragmentManager.commit {
-            val mainFragment = PokemonCardsFragment(PokemonCardsViewModel(application))
+            val mainFragment = PokemonCardsFragment()
             replace(
                 R.id.fragmentContainerView,
                 mainFragment
@@ -31,8 +32,8 @@ class MainActivity : AppCompatActivity() {
 
         val bnvHandler = BnvHandler(
             binding.fragmentContainerView, mapOf(
-                R.id.pokemon_cards to PokemonCardsFragment(PokemonCardsViewModel(application)),
-                R.id.pokemon_favorites to PokemonCardsFragment(PokemonFavoritesViewModel(application))
+                R.id.pokemon_cards to PokemonCardsFragment(),
+                R.id.pokemon_favorites to PokemonSearchFragment()
             )
         )
 
@@ -51,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 addToBackStack(null)
                 replace(
                     R.id.fragmentContainerView,
-                    PokemonCardsFragment(PokemonCardsViewModel(application))
+                    PokemonCardsFragment()
                 )
             }
         }
@@ -62,12 +63,7 @@ class MainActivity : AppCompatActivity() {
                     addToBackStack(null)
                     replace(
                         R.id.fragmentContainerView,
-                        PokemonCardsFragment(
-                            SearchPokemonCardsViewModel(
-                                application,
-                                searchSrcText.text.toString()
-                            )
-                        )
+                        PokemonSearchFragment.newInstance(searchSrcText.text.toString())
                     )
                 }
             }

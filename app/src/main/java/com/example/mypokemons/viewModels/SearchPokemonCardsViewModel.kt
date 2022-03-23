@@ -13,9 +13,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SearchPokemonCardsViewModel(application: Application, private val name: String) : BaseViewModel(application) {
+class SearchPokemonCardsViewModel(application: Application) : BaseViewModel(application) {
 
-    constructor(application: Application) : this(application, "")
+    var name: String = ""
 
     private val model = SearchPokemonsModel(appComponent)
 
