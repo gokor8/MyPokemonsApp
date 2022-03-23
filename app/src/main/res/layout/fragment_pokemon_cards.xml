@@ -19,7 +19,10 @@
         android:id="@+id/pb_wait"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        android:foregroundTintMode="src_atop"
+        android:indeterminateTint="@color/secondary_yellow"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleView"
