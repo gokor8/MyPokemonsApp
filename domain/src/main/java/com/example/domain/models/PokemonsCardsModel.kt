@@ -3,7 +3,7 @@ package com.example.domain.models
 import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.data.database.room.PokemonEntity
 import com.example.mypokemons.data.database.room.models.Images
-import com.example.mypokemons.data.di.AppComponent
+import com.example.di.AppComponent
 import com.example.mypokemons.data.api_services.gson_models.PokemonInfo
 import com.example.mypokemons.data.api_services.gson_models.PokemonModel
 import io.reactivex.Single

@@ -1,4 +1,4 @@
-package com.example.mypokemons.data.di
+package com.example.lib.di
 
 import com.example.mypokemons.data.api_services.ApiService
 import com.example.mypokemons.data.database.room.dao.PokemonDao

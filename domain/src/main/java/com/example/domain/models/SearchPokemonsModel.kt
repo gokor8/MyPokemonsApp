@@ -1,8 +1,7 @@
 package com.example.domain.models
 
 import com.example.domain.models.models.BasePokemonModel
-import com.example.mypokemons.data.di.AppComponent
-import java.util.*
+import com.example.di.AppComponent
 
 class SearchPokemonsModel(val appComponent: AppComponent) {
 
