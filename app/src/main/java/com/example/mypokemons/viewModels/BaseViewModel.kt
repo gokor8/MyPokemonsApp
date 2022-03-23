@@ -14,7 +14,6 @@ abstract class BaseViewModel(application: Application) : AndroidViewModel(applic
     protected val compositeDisposable = CompositeDisposable()
 
     override fun onCleared() {
-        compositeDisposable.dispose()
         compositeDisposable.clear()
         super.onCleared()
     }

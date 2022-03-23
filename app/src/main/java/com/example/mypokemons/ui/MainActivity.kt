@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val bnvHandler = BnvHandler(
-            binding.fragmentContainerView, hashMapOf(
+            binding.fragmentContainerView, mapOf(
                 R.id.pokemon_cards to PokemonCardsFragment(PokemonCardsViewModel(application)),
                 R.id.pokemon_favorites to PokemonCardsFragment(PokemonFavoritesViewModel(application))
             )
@@ -58,9 +58,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.run {
             searchButton.setOnClickListener {
-                supportFragmentManager.beginTransaction()
-                    .addToBackStack(null)
-                    .replace(
+                supportFragmentManager.commit {
+                    addToBackStack(null)
+                    replace(
                         R.id.fragmentContainerView,
                         PokemonCardsFragment(
                             SearchPokemonCardsViewModel(
@@ -69,7 +69,7 @@ class MainActivity : AppCompatActivity() {
                             )
                         )
                     )
-                    .commit()
+                }
             }
         }
     }

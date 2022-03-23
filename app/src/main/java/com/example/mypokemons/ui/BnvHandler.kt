@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentContainerView
 
 class BnvHandler(
     private val fcv: FragmentContainerView,
-    val fragments: HashMap<Int, Fragment> = hashMapOf<Int, Fragment>()
+    val fragments: Map<Int, Fragment> = mapOf()
 ) {
 
     fun changeFragment(id: Int, change: (Fragment) -> Unit) {
