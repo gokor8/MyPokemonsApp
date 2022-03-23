@@ -1,53 +1,75 @@
 package com.example.domain.models
 
-import android.annotation.SuppressLint
-import android.util.Log
+import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.data.database.room.PokemonEntity
 import com.example.mypokemons.data.database.room.models.Images
 import com.example.mypokemons.data.di.AppComponent
-import com.example.mypokemons.data.storage.PokemonInfo
-import com.example.mypokemons.data.storage.PokemonModel
+import com.example.mypokemons.data.api_services.gson_models.PokemonInfo
+import com.example.mypokemons.data.api_services.gson_models.PokemonModel
 import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
-import java.lang.Exception
 
 
-class PokemonsCardsModel(val appComponent: AppComponent) {
+open class PokemonsCardsModel(val appComponent: AppComponent) {
 
-    private val pokemonsDao = appComponent.getDao()
-    private val apiService = appComponent.getApiService()
+    protected val pokemonsDao = appComponent.getDao()
+    protected val apiService = appComponent.getApiService()
 
-    fun getPreviewRetrofitCards(): Single<PokemonModel> = apiService.getAllCards()
+    fun getWebCards(): Single<PokemonModel> = apiService.getAllCards()
 
-    fun getPreviewRoomCards(): Single<List<PokemonEntity>> = pokemonsDao.getAll()
+    fun getDbCards(): Single<List<BasePokemonModel>> {
+        return pokemonsDao.getAll().map { dbPokemons ->
+            var pokemonsList = listOf<BasePokemonModel>()
+            if (dbPokemons.isNotEmpty())
+                pokemonsList = BasePokemonModel.cast(dbPokemons) { pokemonInfo ->
+                    BasePokemonModel(
+                        pokemonInfo.name,
+                        pokemonInfo.images.small,
+                        pokemonInfo.isFavorite
+                    )
+                }
+            return@map pokemonsList
+        }
+    }
 
-    fun refreshTable(insertData: List<PokemonInfo>) =
+    fun castDbCards(dbPokemons: List<PokemonEntity>): List<BasePokemonModel> {
+        var pokemonsList = listOf<BasePokemonModel>()
+        if (dbPokemons.isNotEmpty())
+            pokemonsList = BasePokemonModel.cast(dbPokemons) { pokemonInfo ->
+                BasePokemonModel(
+                    pokemonInfo.name,
+                    pokemonInfo.images.small,
+                    pokemonInfo.isFavorite
+                )
+            }
+        return pokemonsList
+    }
+
+    fun syncDbCards(insertData: List<PokemonInfo>) =
         pokemonsDao.getAll()
             .map { dbPokemons ->
-                if(insertData.isEmpty())
+                if (insertData.isEmpty())
                     return@map dbPokemons
 
                 pokemonsDao.deleteAll()
 
-                val dbList = insertData.mapIndexed { index,pokemon ->
+                val dbList = insertData.mapIndexed { index, pokemon ->
                     var isFavorite = false
-                    if(dbPokemons.isNotEmpty() && dbPokemons.size >= index)
+                    if (dbPokemons.isNotEmpty() && dbPokemons.size >= index)
                         isFavorite = dbPokemons[index].isFavorite
 
                     var attack = "Nope"
-                    if(pokemon.attacks != null)
-                        attack = pokemon.attacks[0].name
+                    if (pokemon.attacks != null) attack = pokemon.attacks[0].name
 
-                        PokemonEntity(
-                            pokemon.name,
-                            pokemon.rarity ?: "",
-                            pokemon.types[0] ?: "",
-                            pokemon.subtypes[0] ?: "",
-                            pokemon.hp,
-                            Images(pokemon.images.small, pokemon.images.large),
-                            attack?: "",
-                            isFavorite
-                        )
+                    PokemonEntity(
+                        pokemon.name,
+                        pokemon.rarity ?: "",
+                        pokemon.types[0] ?: "",
+                        pokemon.subtypes[0] ?: "",
+                        pokemon.hp,
+                        Images(pokemon.images.small, pokemon.images.large),
+                        attack ?: "",
+                        isFavorite
+                    )
                 }
                 pokemonsDao.insertList(dbList)
 
