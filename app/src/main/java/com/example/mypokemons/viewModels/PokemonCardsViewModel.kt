@@ -10,20 +10,10 @@ import com.example.mypokemons.ui.BaseApplication
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PokemonCardsViewModel(application: Application) : AndroidViewModel(application) {
-    val pokemonsLiveData = MutableLiveData<List<BasePokemonModel>>()
-
-    private val appComponent = (application as BaseApplication).getAppComponent()
+class PokemonCardsViewModel(application: Application) : BaseViewModel(application) {
     private var model = PokemonsCardsModel(appComponent)
 
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
-
-    fun setPreviewPokemons() {
+    override fun updateData() {
         val disposeSub = model.getPreviewRetrofitCards()
             .subscribeOn(Schedulers.io())
             .flatMap {
@@ -63,7 +53,6 @@ class PokemonCardsViewModel(application: Application) : AndroidViewModel(applica
                 Log.d("ErrorDb", it.stackTraceToString())
             }
             )
-
         compositeDisposable.add(disposeSub)
     }
 }

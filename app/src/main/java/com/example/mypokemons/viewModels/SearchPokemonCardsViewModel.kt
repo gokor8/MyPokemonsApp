@@ -6,29 +6,18 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.SearchPokemonsModel
 import com.example.domain.models.model.BasePokemonModel
-import com.example.mypokemons.data.database.room.PokemonEntity
-import com.example.mypokemons.data.storage.PokemonModel
 import com.example.mypokemons.ui.BaseApplication
-import io.reactivex.Observable
-import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class SearchPokemonCardsViewModel(application: Application) : AndroidViewModel(application) {
-    val foundPokemonsLiveData = MutableLiveData<List<BasePokemonModel>>()
+class SearchPokemonCardsViewModel(application: Application, private val name: String) : BaseViewModel(application) {
 
-    private val appComponent = (application as BaseApplication).getAppComponent()
+    constructor(application: Application) : this(application, "")
+
     private val model = SearchPokemonsModel(appComponent)
 
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun onCleared() {
-        compositeDisposable.clear()
-        super.onCleared()
-    }
-
-    fun search(name: String) {
+    override fun updateData() {
         val filteredPokemons = mutableListOf<BasePokemonModel>()
         compositeDisposable.add(
             model.getFoundCards(name)
@@ -53,7 +42,7 @@ class SearchPokemonCardsViewModel(application: Application) : AndroidViewModel(a
                 }
                 .subscribe({ pokemon ->
                     filteredPokemons.add(pokemon)
-                    foundPokemonsLiveData.postValue(filteredPokemons)
+                    pokemonsLiveData.postValue(filteredPokemons)
                 }, {
                     Log.d("ThreadError", it.message.toString())
                 })

@@ -1,23 +1,14 @@
 package com.example.mypokemons.viewModels
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.PokemonFavoritesModel
 import com.example.domain.models.model.BasePokemonModel
-import com.example.mypokemons.ui.BaseApplication
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 
-class PokemonFavoritesViewModel(application: Application) : AndroidViewModel(application) {
-    val pokemonsLiveData = MutableLiveData<List<BasePokemonModel>>()
-
-    private val appComponent = (application as BaseApplication).getAppComponent()
+class PokemonFavoritesViewModel(application: Application) : BaseViewModel(application) {
     private var model = PokemonFavoritesModel(appComponent)
 
-    private val compositeDisposable = CompositeDisposable()
-
-    fun setFavorites() {
+    override fun updateData() {
         compositeDisposable.add(
             model.getFavoritesCards()
             .subscribeOn(Schedulers.io())
