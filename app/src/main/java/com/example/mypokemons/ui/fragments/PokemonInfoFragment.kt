@@ -31,10 +31,10 @@ class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_i
 
                     val stringBuilder = StringBuilder()
                     stringBuilder.apply {
-                        appendln(getString(R.string.hp, pokemonInfo.health))
-                        appendln(getString(R.string.type_attack,pokemonInfo.typeAttack))
-                        appendln(getString(R.string.subtype, pokemonInfo.subtype))
-                        appendln(getString(R.string.rare, pokemonInfo.rare))
+                        appendLine(getString(R.string.hp, pokemonInfo.health))
+                        appendLine(getString(R.string.type_attack,pokemonInfo.typeAttack))
+                        appendLine(getString(R.string.subtype, pokemonInfo.subtype))
+                        appendLine(getString(R.string.rare, pokemonInfo.rare))
                     }
 
                     description.text = stringBuilder.toString()
