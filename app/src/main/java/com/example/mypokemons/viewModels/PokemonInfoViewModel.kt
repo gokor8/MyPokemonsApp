@@ -4,10 +4,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.PokemonInfoModel
-import com.example.domain.models.model.BasePokemonModel
-import com.example.domain.models.model.FullPokemonModel
+import com.example.domain.models.models.FullPokemonModel
 import com.example.mypokemons.ui.BaseApplication
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 

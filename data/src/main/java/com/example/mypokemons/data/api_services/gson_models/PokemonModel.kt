@@ -1,4 +1,4 @@
-package com.example.mypokemons.data.storage
+package com.example.mypokemons.data.api_services.gson_models
 
 import com.google.gson.annotations.SerializedName
 

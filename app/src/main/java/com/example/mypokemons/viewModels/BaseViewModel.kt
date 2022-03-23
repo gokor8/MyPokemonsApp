@@ -3,7 +3,7 @@ package com.example.mypokemons.viewModels
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import com.example.domain.models.model.BasePokemonModel
+import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.ui.BaseApplication
 import io.reactivex.disposables.CompositeDisposable
 

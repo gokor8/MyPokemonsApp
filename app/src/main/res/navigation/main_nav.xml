@@ -14,11 +14,6 @@
             app:destination="@id/pokemonInfo" />
     </fragment>
     <fragment
-        android:id="@+id/pokemonFavorites"
-        android:name="com.example.mypokemons.ui.fragments.PokemonFavoritesFragment"
-        android:label="fragment_pokemon_favorites"
-        tools:layout="@layout/fragment_pokemon_favorites" />
-    <fragment
         android:id="@+id/pokemonInfo"
         android:name="com.example.mypokemons.ui.fragments.PokemonInfoFragment"
         android:label="fragment_pokemon_info"
@@ -27,9 +22,4 @@
             android:id="@+id/action_pokemonInfo_to_mainFragment"
             app:destination="@id/mainFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/searchPokemonCards"
-        android:name="com.example.mypokemons.ui.fragments.SearchPokemonCardsFragment"
-        android:label="fragment_search_pokemon_cards"
-        tools:layout="@layout/fragment_search_pokemon_cards" />
 </navigation>

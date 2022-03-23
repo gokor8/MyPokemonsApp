@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.domain.models.model.BasePokemonModel
+import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ElRecyclerViewCardBinding
 import com.example.mypokemons.ui.callback.RvDiffCallback

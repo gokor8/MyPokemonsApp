@@ -1,4 +1,4 @@
-package com.example.domain.models.model
+package com.example.domain.models.models
 
 open class BasePokemonModel(
     val name: String,

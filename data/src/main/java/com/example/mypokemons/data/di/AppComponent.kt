@@ -1,6 +1,6 @@
 package com.example.mypokemons.data.di
 
-import com.example.mypokemons.data.apiServices.ApiService
+import com.example.mypokemons.data.api_services.ApiService
 import com.example.mypokemons.data.database.room.dao.PokemonDao
 import dagger.Component
 import javax.inject.Singleton

@@ -1,6 +1,5 @@
 package com.example.mypokemons.data.database.room
 
-import android.content.Context
 import androidx.room.*
 import androidx.room.RoomDatabase
 import com.example.mypokemons.data.database.room.dao.PokemonDao

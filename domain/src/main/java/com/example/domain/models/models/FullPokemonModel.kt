@@ -1,4 +1,4 @@
-package com.example.domain.models.model
+package com.example.domain.models.models
 
 class FullPokemonModel(
     name: String,

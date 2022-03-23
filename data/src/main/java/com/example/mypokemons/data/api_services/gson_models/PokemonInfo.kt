@@ -1,4 +1,4 @@
-package com.example.mypokemons.data.storage
+package com.example.mypokemons.data.api_services.gson_models
 
 data class PokemonInfo(
     val attacks: List<Attack>,
