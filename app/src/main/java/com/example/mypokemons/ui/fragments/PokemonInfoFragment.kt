@@ -23,8 +23,9 @@ class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_i
         viewModel = ViewModelProvider(this)[PokemonInfoViewModel::class.java]
 
         binding?.run {
-            viewModel?.let {
-                it.infoLiveData.observe(this@PokemonInfoFragment as LifecycleOwner) { pokemonInfo ->
+            viewModel?.let { vm ->
+                vm.infoLiveData.observe(this@PokemonInfoFragment as LifecycleOwner)
+                { pokemonInfo ->
                     Picasso.get().load(pokemonInfo.image).into(image)
                     titleName.text = pokemonInfo.name
                     species.text = pokemonInfo.type
@@ -40,11 +41,11 @@ class PokemonInfoFragment(val id: String) : Fragment(R.layout.fragment_pokemon_i
                     description.text = stringBuilder.toString()
                     changeFab(pokemonInfo.isFavorite)
                 }
-                it.setPreviewData(id)
+                vm.setPreviewData(id)
 
-                fab.setOnClickListener { fab ->
-                    it.infoLiveData.value?.apply {
-                        it.updateFavorite(id, isFavorite)
+                fab.setOnClickListener {
+                    vm.infoLiveData.value?.apply {
+                        vm.updateFavorite(id)
                     }
                 }
             }

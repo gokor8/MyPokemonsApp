@@ -26,7 +26,7 @@ class PokemonInfoViewModel(application: Application) :
         super.onCleared()
     }
 
-    fun updateFavorite(id: String, isFavorite: Boolean) {
+    fun updateFavorite(id: String) {
         compositeDisposable.add(
             model.getCardById(id)
                 .subscribeOn(Schedulers.io())
