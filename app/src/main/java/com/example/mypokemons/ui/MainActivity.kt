@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
         binding.bnvMain.setOnItemSelectedListener { menuItem ->
             bnvHandler.changeFragment(menuItem.itemId) {
                 supportFragmentManager.beginTransaction()
+                    .addToBackStack(null)
                     .replace(R.id.fragmentContainerView, it)
                     .commit()
             }

@@ -22,7 +22,8 @@ class PokemonCardsViewModel(application: Application) : BaseViewModel(applicatio
                 return@onErrorResumeNext model.getDbCards()
             }
             .subscribe({
-                pokemonsLiveData.postValue(it)
+                if(pokemonsLiveData.value?.size != it.size)
+                    pokemonsLiveData.postValue(it)
             }, {
                 Log.d("RoomError", it.stackTraceToString())
             }

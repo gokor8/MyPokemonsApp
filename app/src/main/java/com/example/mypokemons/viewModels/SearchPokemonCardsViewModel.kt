@@ -9,9 +9,11 @@ import com.example.domain.models.SearchPokemonsModel
 import com.example.domain.models.models.BasePokemonModel
 import com.example.mypokemons.ui.BaseApplication
 import com.example.mypokemons.ui.fragments.PokemonCardsFragment
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import java.util.*
 
 class SearchPokemonCardsViewModel(application: Application) : BaseViewModel(application) {
 
@@ -26,8 +28,7 @@ class SearchPokemonCardsViewModel(application: Application) : BaseViewModel(appl
         compositeDisposable.add(
             model.getWebCards(name)
                 .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .flatMapIterable { it.pokemons }
+                .flattenAsObservable { it.pokemons }
                 .flatMap { rPokemon ->
                     Log.d("Name", "$name : ${rPokemon.name}")
                     model.getById(rPokemon.id)
