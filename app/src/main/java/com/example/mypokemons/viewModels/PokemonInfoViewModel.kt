@@ -1,6 +1,7 @@
 package com.example.mypokemons.viewModels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import com.example.domain.models.PokemonInfoModel
@@ -26,11 +27,15 @@ class PokemonInfoViewModel(application: Application) :
 
     fun updateFavorite(id: String, isFavorite: Boolean) {
         compositeDisposable.add(
-            model.getCardInfo(id)
+            model.getCardById(id)
             .subscribeOn(Schedulers.io())
-                .flatMap {
-                    it.isFavorite = !isFavorite
+                .map {
+                    it.isFavorite = !it.isFavorite
                     model.updateFavorite(it)
+                    it
+                }
+                .flatMap {
+                    model.getCardById(it.pId)
                 }
             .subscribe { pokemonDb ->
                 infoLiveData.value?.run {
@@ -43,7 +48,7 @@ class PokemonInfoViewModel(application: Application) :
     }
 
     fun setPreviewData(id: String) {
-        val disposeSub = model.getCardInfo(id)
+        val disposeSub = model.getCardById(id)
             .subscribeOn(Schedulers.io())
             .subscribe { dbPokemons ->
                     dbPokemons.apply {

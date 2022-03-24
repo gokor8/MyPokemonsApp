@@ -26,7 +26,7 @@ interface PokemonDao {
     fun getCardsByRawId(id: String): Observable<List<PokemonEntity>>
 
     @Query("SELECT * FROM pokemons WHERE p_id = :id")
-    fun getCardByRawId(id: String) : Observable<PokemonEntity>
+    fun getCardByRawId(id: String) : Single<PokemonEntity>
 
     @Query("SELECT * FROM pokemons WHERE name LIKE '%'||:name||'%'")
     fun getCardsLikeName(name: String): Observable<List<PokemonEntity>>
