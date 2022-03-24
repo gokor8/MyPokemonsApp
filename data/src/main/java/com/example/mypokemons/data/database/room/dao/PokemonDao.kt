@@ -38,7 +38,7 @@ interface PokemonDao {
     fun getSize(): Single<Int>
 
     @Query("SELECT * FROM pokemons WHERE is_favorite = :favorite")
-    fun getCardsByFavorite(favorite: Int) : Observable<List<PokemonEntity>>
+    fun getCardsByFavorite(favorite: Int) : Single<List<PokemonEntity>>
 
     @Query("UPDATE pokemons SET is_favorite = :newFavoriteStatus WHERE p_id = :name")
     fun updateFavoriteByName(name: String, newFavoriteStatus: Int): Single<Unit>

@@ -13,10 +13,8 @@ class PokemonFavoritesViewModel(application: Application) : BaseViewModel(applic
             model.getFavoritesCards()
                 .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe {
-                val castedPokemons = model.castDbCards(it)
-
-                pokemonsLiveData.postValue(castedPokemons)
+            .subscribe { dbPokemons ->
+                pokemonsLiveData.postValue(model.castDbCards(dbPokemons))
             }
         )
     }
