@@ -23,6 +23,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.toolbar.searchSrcText.clearFocus()
 
+        binding.bnvMain.menu.apply {
+
+        }
+
         supportFragmentManager.commit {
             val mainFragment = PokemonCardsFragment()
             replace(

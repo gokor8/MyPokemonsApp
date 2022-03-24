@@ -30,7 +30,7 @@
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bnv_main"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -39,6 +39,7 @@
         app:menu="@menu/bottom_menu"
         app:labelVisibilityMode="unlabeled"
         android:layout_alignParentTop="true"
+        app:itemHorizontalTranslationEnabled = "false"
         app:itemBackground="@drawable/bnt_background"
         />
 
