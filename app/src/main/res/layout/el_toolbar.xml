@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_marginStart="18dp"
         android:background="#00000000"
-        android:src="@drawable/ic_vectorback"
+        android:src="@drawable/ic_vector_back"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,7 +51,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_vectorsearch"
+            android:src="@drawable/ic_vector_search"
             android:background="#00000000"/>
     </FrameLayout>
 
