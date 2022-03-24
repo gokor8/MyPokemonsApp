@@ -15,7 +15,7 @@ class PokemonSearchFragment() : PokemonCardsFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        retainInstance = true
         binding = FragmentPokemonCardsBinding.bind(view)
         viewModel = ViewModelProvider(this)[SearchPokemonCardsViewModel::class.java]
 

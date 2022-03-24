@@ -2,6 +2,7 @@ package com.example.mypokemons.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import com.example.mypokemons.R
 import com.example.mypokemons.databinding.ActivityMainBinding
@@ -16,24 +17,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private val lastFragment = "LAST_FRAGMENT"
+    var lastSelected: Fragment = PokemonCardsFragment()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.toolbar.searchSrcText.clearFocus()
-
-        binding.bnvMain.menu.apply {
-
-        }
-
-        supportFragmentManager.commit {
-            val mainFragment = PokemonCardsFragment()
-            replace(
-                R.id.fragmentContainerView,
-                mainFragment
-            )
-        }
 
         val bnvHandler = BnvHandler(
             binding.fragmentContainerView, mapOf(
@@ -42,8 +34,8 @@ class MainActivity : AppCompatActivity() {
             )
         )
 
-        binding.bnvMain.setOnItemSelectedListener {
-            bnvHandler.changeFragment(it.itemId) {
+        binding.bnvMain.setOnItemSelectedListener { menuItem ->
+            bnvHandler.changeFragment(menuItem.itemId) {
                 supportFragmentManager.beginTransaction()
                     .replace(R.id.fragmentContainerView, it)
                     .commit()
